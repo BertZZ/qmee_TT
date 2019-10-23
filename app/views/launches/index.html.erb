@@ -1,5 +1,5 @@
 <h1> Space X Launches </h1>
-
 <% @launches.each do |launch| %>
   <li> <%= launch['mission_name'] %>  </li>
+  <%= link_to "Launch Data", launch_path(launch['flight_number']) %>
 <% end %>

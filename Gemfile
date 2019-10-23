@@ -53,6 +53,7 @@ group :test do
   gem 'chromedriver-helper'
   gem 'rspec-rails'
   gem 'selenium-webdriver'
+  gem 'simplecov'
   gem 'shoulda-matchers'
   gem 'webmock'
 end

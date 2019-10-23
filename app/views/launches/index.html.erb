@@ -1,5 +1,30 @@
-<h1> Space X Launches </h1>
-<% @launches.each do |launch| %>
-  <li> <%= launch['mission_name'] %>  </li>
-  <%= link_to "Launch Data", launch_path(launch['flight_number']) %>
-<% end %>
+<body>
+  <h1> Space X Launches </h1>
+
+  <h3> Past Launches </h3>
+  <div>
+    <table>
+    <% @past_launches.each do |launch| %>
+        <tr>
+          <td><img src="<%= launch['links']['mission_patch_small'] %>" height="90" width="90" ></td>
+          <td><%= launch['mission_name'] %></td>
+          <td><%= launch['launch_date_utc'].to_date.strftime('%d-%m-%Y %l:%M') %></td>
+          <td><%= link_to "Launch Data", launch_path(launch['flight_number']) %></td>
+        </tr>
+    <% end %>
+    </table>
+  </div>
+
+  <h3> Upcoming Launches </h3>
+
+  <div>
+    <table>
+    <% @upcoming_launches.each do |launch| %>
+      <tr>
+        <td><%= launch['mission_name'] %></td>
+        <td><%= launch['launch_date_utc'].to_date.strftime('%d-%m-%Y %l:%M') %></td>
+      </tr>
+    <% end %>
+    </table>
+  </div>
+</body>

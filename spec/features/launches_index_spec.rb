@@ -2,8 +2,8 @@ require 'rails_helper'
 
 describe 'visiting the homepage' do
   before do
-    body = [{"flight_number":1,"mission_name":"FalconSat"} ,{"flight_number":2,"mission_name":"DemoSat"}].to_json
-    stub_request(:get, 'https://api.spacexdata.com/v3/launches').
+    body = [{"flight_number":1,"mission_name":"FalconSat", "links": {"mission_patch_small": "https://images2.imgbox.com/3c/0e/T8iJcSN3_o.png"}}].to_json
+    stub_request(:get, 'https://api.spacexdata.com/v3/launches/past').
     with(
       headers: {
       'Accept'=>'*/*',

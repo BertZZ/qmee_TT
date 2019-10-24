@@ -5,6 +5,7 @@ describe LaunchRequest do
     past_body = [{"flight_number":1,"mission_name":"FalconSat"} ,{"flight_number":2,"mission_name":"DemoSat"}].to_json
     upcoming_body = [{"flight_number":75,"mission_name":"Nusantara Satu (PSN-6) / GTO-1 / Beresheet"} ,{"flight_number":76,"mission_name":"CCtCap Demo Mission 1"}].to_json
     single_body = [{"flight_number":1,"mission_name":"FalconSat"}].to_json
+    next_body = [{"flight_number":84,"mission_name":"Starlink 2"}].to_json
 
     stub_request(:get, 'https://api.spacexdata.com/v3/launches/past').
     with(
@@ -32,6 +33,16 @@ describe LaunchRequest do
        'User-Agent'=>'Ruby'
         }).
       to_return(status: 200, body: single_body , headers: {})
+
+      stub_request(:get, "https://api.spacexdata.com/v3/launches/next").
+         with(
+           headers: {
+       	  'Accept'=>'*/*',
+       	  'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+       	  'User-Agent'=>'Ruby'
+           }).
+         to_return(status: 200, body: next_body, headers: {})
+
     end
 
   describe '#get_past_launch_data' do
@@ -45,6 +56,13 @@ describe LaunchRequest do
       it 'makes a request for upcoming launch data to the SpaceX endpoint' do
         LaunchRequest.get_upcoming_launch_data
         expect(a_request(:get, 'https://api.spacexdata.com/v3/launches/upcoming')).to have_been_made
+      end
+    end
+
+    describe '#get_next_launch' do
+      it 'makes a request for the next launch' do
+        LaunchRequest.get_next_launch
+        expect(a_request(:get, 'https://api.spacexdata.com/v3/launches/next')).to have_been_made
       end
     end
 

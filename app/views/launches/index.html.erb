@@ -1,13 +1,15 @@
 <body>
   <h1> Space X Launches </h1>
+  <div id="succesfullLaunches"><h2> Successfull Launches: <%= count_succesfull_launches(@past_launches)%></div>
+  <div id="failedLaunches"><h2> Failed Launches: <%= count_failed_launches(@past_launches)%></div>
   <h3> Countdown till <%= @next_launch['mission_name']%> launch</h3>
   <div id="launchDate-countdown">
    <table>
     	<tr>
-    		<td>days</td>
-    		<td>hours</td>
-    		<td>minutes</td>
-    		<td>seconds</td>
+    		<td>Days</td>
+    		<td>Hours</td>
+    		<td>Minutes</td>
+    		<td>Seconds</td>
     	</tr>
     	<tr>
     		<td id="days"></td>

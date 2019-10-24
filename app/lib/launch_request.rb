@@ -13,4 +13,8 @@ class LaunchRequest
     response = HTTParty.get("https://api.spacexdata.com/v3/launches/#{id}").body
   end
 
+  def self.get_next_launch
+    response =  HTTParty.get("https://api.spacexdata.com/v3/launches/next").body
+  end
+
 end

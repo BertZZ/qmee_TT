@@ -1,5 +1,61 @@
 <body>
   <h1> Space X Launches </h1>
+  <h3> Countdown till <%= @next_launch['mission_name']%> launch</h3>
+  <div id="launchDate-countdown">
+   <table>
+    	<tr>
+    		<td>days</td>
+    		<td>hours</td>
+    		<td>minutes</td>
+    		<td>seconds</td>
+    	</tr>
+    	<tr>
+    		<td id="days"></td>
+    		<td id="hours"></td>
+    		<td id="minutes"></td>
+    		<td id="seconds"></td>
+    	</tr>
+
+    </table>
+
+    	<script type="text/javascript">
+    		function countdown() {
+    			var now = new Date();
+          var dateArray = <%= raw @next_launch['launch_date_utc'].split('T')[0].split('-') %>;
+    			var launchDate = new Date(dateArray[0], dateArray[1]-1, dateArray[2]);
+    			var currentTime = now.getTime();
+    			var launchTime = launchDate.getTime();
+
+    			var remTime = launchTime - currentTime;
+
+    			var s = Math.floor(remTime / 1000);
+    			var m = Math.floor(s / 60);
+    			var h = Math.floor(m / 60);
+    			var d = Math.floor(h / 24);
+
+    			h %= 24;
+    			m %= 60;
+    			s %= 60;
+
+    			h = (h < 10) ? "0" + h : h;
+    			m = (m < 10) ? "0" + m : m;
+    			s = (s < 10) ? "0" + s : s;
+
+    			document.getElementById("days").textContent = d;
+    			document.getElementById("days").innerText = d;
+
+    			document.getElementById("hours").textContent = h;
+    			document.getElementById("minutes").textContent = m;
+    			document.getElementById("seconds").textContent = s;
+
+    				setTimeout(countdown, 1000);
+    								}
+
+    								countdown();
+
+    							</script>
+
+    						</div>
 
   <h3> Past Launches </h3>
   <div>
@@ -9,7 +65,7 @@
           <td><img src="<%= launch['links']['mission_patch_small'] %>" height="90" width="90" ></td>
           <td><%= launch['mission_name'] %></td>
           <td><%= launch['launch_date_utc'].to_date.strftime('%d-%m-%Y %l:%M') %></td>
-          <td><%= link_to "Launch Data", launch_path(launch['flight_number']) %></td>
+          <td><%= link_to "More Info", launch_path(launch['flight_number']) %></td>
         </tr>
     <% end %>
     </table>
